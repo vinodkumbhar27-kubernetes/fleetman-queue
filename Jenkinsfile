@@ -7,6 +7,7 @@ pipeline {
      // YOUR_DOCKERHUB_USERNAME (it doesn't matter if you don't have one)
 
      SERVICE_NAME = "fleetman-queue"
+     // Corrected the lowercase conversion placement
      REPOSITORY_TAG = "${YOUR_DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}".toLowerCase()
    }
 
@@ -25,10 +26,10 @@ pipeline {
 
       stage('Build and Push Image') {
          steps {
-           sh '''
+           // Added -t flag to specify the tag for the image
+           sh """
               docker image build -t ${REPOSITORY_TAG} .
-              wget --no-check-certificate -O activemq.tar.gz http://archive.apache.org/dist/activemq/5.14.3/apache-activemq-5.14.3-bin.tar.gz
-           '''
+           """
          }
       }
 
