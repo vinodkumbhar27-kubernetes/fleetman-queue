@@ -25,7 +25,10 @@ pipeline {
 
       stage('Build and Push Image') {
          steps {
-           sh "docker image build -t ${REPOSITORY_TAG} ."
+           sh '''
+              docker image build -t ${REPOSITORY_TAG} .
+              wget --no-check-certificate -O activemq.tar.gz http://archive.apache.org/dist/activemq/5.14.3/apache-activemq-5.14.3-bin.tar.gz
+           '''
          }
       }
 
